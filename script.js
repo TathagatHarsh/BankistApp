@@ -220,7 +220,26 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-let currentUser;
+let currentUser, timer;
+
+function startLogOutTimer() {
+  let time = 300;
+
+  const timer = setInterval(() => {
+    let min = String(Math.trunc(time / 60)).padStart(2, 0);
+    let sec = String(time % 60).padStart(2, 0);
+
+    labelTimer.textContent = `${min}:${sec}`;
+    time--;
+    if (time == -1) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+  }, 1000);
+
+  return timer;
+}
 
 const now = new Date();
 const day = `${now.getDate()}`.padStart(2, 0);
@@ -245,6 +264,11 @@ btnLogin.addEventListener("click", function (e) {
     containerApp.style.opacity = 100;
 
     updateUI(currentUser);
+
+    if (timer > 0) {
+      clearInterval(timer);
+    }
+    timer = startLogOutTimer();
   }
 });
 
@@ -277,6 +301,10 @@ btnTransfer.addEventListener("click", (e) => {
     currentUser.movementsDates.push(date);
 
     updateUI(currentUser);
+    if (timer > 0) {
+      clearInterval(timer);
+    }
+    timer = startLogOutTimer();
   }
 });
 
@@ -292,6 +320,10 @@ btnLoan.addEventListener("click", function (e) {
       currentUser.movementsDates.push(date);
 
       updateUI(currentUser);
+      if (timer > 0) {
+        clearInterval(timer);
+      }
+      timer = startLogOutTimer();
     }
   }, 4000);
   inputLoanAmount.value = "";
