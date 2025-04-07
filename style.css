@@ -90,6 +90,12 @@ nav {
   /* NOTE This creates the fade in/out anumation */
   opacity: 0;
   transition: all 1s;
+
+  /* Hide demo image when app is visible (i.e., after login) */
+  ~ .demo-credentials {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .balance {
@@ -288,4 +294,27 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+
+.demo-credentials {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  opacity: 1;
+  transition: opacity 1s ease;
+  text-align: center;
+}
+
+.demo-credentials img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.demo-credentials.hidden {
+  opacity: 0;
+  pointer-events: none;
 }

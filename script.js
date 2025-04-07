@@ -102,7 +102,9 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-//Functions
+const demoImage = document.querySelector(".demo-credentials");
+
+// After user logs in successfully
 
 const ShowDisplayDate = function (date) {
   const CalcDaysPassed = (date1, date2) =>
@@ -262,6 +264,10 @@ btnLogin.addEventListener("click", function (e) {
     inputLoginPin.blur(); //Just To Remove Cursor and Focus From the login
     labelWelcome.textContent = `Welcome ${currentUser.owner.split(" ")[0]}`;
     containerApp.style.opacity = 100;
+    if (demoImage) {
+      demoImage.style.opacity = 0;
+      demoImage.style.pointerEvents = "none";
+    }
 
     updateUI(currentUser);
 
